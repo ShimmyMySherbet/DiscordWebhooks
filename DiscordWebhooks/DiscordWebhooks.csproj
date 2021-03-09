@@ -12,6 +12,9 @@
     <PackageTags>Discord Webhook</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/ShimmyMySherbet/DiscordWebhooks</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ShimmyMySherbet/DiscordWebhooks</PackageProjectUrl>
+    <PackageId>ShimmyMySherbet.DiscordWebhook</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
