@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordWebhooks", "DiscordWebhooks\DiscordWebhooks.csproj", "{7D6B1145-2B71-48F3-B941-71E31CE7FCCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D6B1145-2B71-48F3-B941-71E31CE7FCCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D6B1145-2B71-48F3-B941-71E31CE7FCCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D6B1145-2B71-48F3-B941-71E31CE7FCCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D6B1145-2B71-48F3-B941-71E31CE7FCCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CA2BD76-A2D5-44E5-B2F2-E811D61EC309}
+	EndGlobalSection
+EndGlobal

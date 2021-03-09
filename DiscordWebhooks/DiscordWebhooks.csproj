@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>ShimmyMySherbet.DiscordWebhook</RootNamespace>
+    <AssemblyName>ShimmyMySherbet.DiscordWebhooks</AssemblyName>
+    <Authors>ShimmyMySherbet</Authors>
+    <Product>DiscordWebhooks</Product>
+    <Description>A simple library with advanced constructors to post discord webhooks.</Description>
+    <Copyright>ShimmyMySherbet 2020</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>Discord Webhook</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
