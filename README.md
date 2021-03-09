@@ -4,7 +4,7 @@ A small light weight library for sending webhook messages to discord.
 Provides Async and non-async APIs.
 
 # Installation
-Install via Nu-get: nuget install ShimmyMySherbet.DiscordWebhook
+Install via Nu-get: **nuget install ShimmyMySherbet.DiscordWebhook**
 
 
 
