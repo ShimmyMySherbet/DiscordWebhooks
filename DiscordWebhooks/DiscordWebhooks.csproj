@@ -15,7 +15,8 @@
     <RepositoryUrl>https://github.com/ShimmyMySherbet/DiscordWebhooks</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ShimmyMySherbet/DiscordWebhooks</PackageProjectUrl>
     <PackageId>ShimmyMySherbet.DiscordWebhook</PackageId>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
+    <PackageReleaseNotes>Fixed constant colors (Thanks DiFFoZ!)</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
