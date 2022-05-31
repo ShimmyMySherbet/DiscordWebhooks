@@ -188,7 +188,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 
         public WebhookEmbed WithTimestamp(DateTime value)
         {
-            this.timestamp = DiscordHelpers.DateTimeToISO(value);
+            timestamp = DiscordHelpers.DateTimeToISO(value.ToLocalTime());
             return this;
         }
 
