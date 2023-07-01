@@ -59,6 +59,54 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 
             _ = (HttpWebResponse)(await request.GetResponseAsync());
         }
+
+        public void EditMessage(ulong messageId, WebhookMessage message)
+        {
+            if (message.username != default) { throw new Exception("DiscordWebhooks: username field is not supported for editing messages."); }
+            if (message.avatar_url != default) { throw new Exception("DiscordWebhooks: avatar_url field is not supported for editing messages."); }
+            
+
+            HttpWebRequest request = WebRequest.CreateHttp(WebhookURL + $"/messages/{messageId}");
+            request.Method = "PATCH";
+            request.ContentType = "application/json";
+
+            string Payload = JsonConvert.SerializeObject(message);
+            byte[] Buffer = Encoding.UTF8.GetBytes(Payload);
+
+            request.ContentLength = Buffer.Length;
+
+            using (Stream write = request.GetRequestStream())
+            {
+                write.Write(Buffer, 0, Buffer.Length);
+                write.Flush();
+            }
+
+            var resp = (HttpWebResponse)request.GetResponse();
+        }
+
+        public async Task EditMessageAsync(ulong messageId, WebhookMessage message)
+        {
+            if (message.username != default) { throw new Exception("DiscordWebhooks: username field is not supported for editing messages."); }
+            if (message.avatar_url != default) { throw new Exception("DiscordWebhooks: avatar_url field is not supported for editing messages."); }
+
+            HttpWebRequest request = WebRequest.CreateHttp(WebhookURL + $"/messages/{messageId}");
+            request.Method = "PATCH";
+            request.ContentType = "application/json";
+
+            string Payload = JsonConvert.SerializeObject(message);
+            byte[] Buffer = Encoding.UTF8.GetBytes(Payload);
+
+            request.ContentLength = Buffer.Length;
+
+            using (Stream write = (await request.GetRequestStreamAsync()))
+            {
+                await write.WriteAsync(Buffer, 0, Buffer.Length);
+                await write.FlushAsync();
+            }
+
+            _ = (HttpWebResponse)(await request.GetResponseAsync());
+        }
+
     }
 
     public static class DiscordWebhookService
@@ -86,7 +134,54 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
         public static async Task PostMessageAsync(string WebhookURL, WebhookMessage message)
         {
             HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
+
             request.Method = "POST";
+            request.ContentType = "application/json";
+
+            string Payload = JsonConvert.SerializeObject(message);
+            byte[] Buffer = Encoding.UTF8.GetBytes(Payload);
+
+            request.ContentLength = Buffer.Length;
+
+            using (Stream write = (await request.GetRequestStreamAsync()))
+            {
+                await write.WriteAsync(Buffer, 0, Buffer.Length);
+                await write.FlushAsync();
+            }
+
+            _ = (HttpWebResponse)(await request.GetResponseAsync());
+        }
+
+        public static void EditMessage(string WebhookURL, ulong messageId, WebhookMessage message)
+        {
+            if (message.username != default) { throw new Exception("DiscordWebhooks: username field is not supported for editing messages."); }
+            if (message.avatar_url != default) { throw new Exception("DiscordWebhooks: avatar_url field is not supported for editing messages."); }
+
+            HttpWebRequest request = WebRequest.CreateHttp(WebhookURL + $"/messages/{messageId}");
+            request.Method = "PATCH";
+            request.ContentType = "application/json";
+
+            string Payload = JsonConvert.SerializeObject(message);
+            byte[] Buffer = Encoding.UTF8.GetBytes(Payload);
+
+            request.ContentLength = Buffer.Length;
+
+            using (Stream write = request.GetRequestStream())
+            {
+                write.Write(Buffer, 0, Buffer.Length);
+                write.Flush();
+            }
+
+            var resp = (HttpWebResponse)request.GetResponse();
+        }
+
+        public static async Task EditMessageAsync(string WebhookURL, ulong messageId, WebhookMessage message)
+        {
+            if (message.username != default) { throw new Exception("DiscordWebhooks: username field is not supported for editing messages."); }
+            if (message.avatar_url != default) { throw new Exception("DiscordWebhooks: avatar_url field is not supported for editing messages."); }
+
+            HttpWebRequest request = WebRequest.CreateHttp(WebhookURL + $"/messages/{messageId}");
+            request.Method = "PATCH";
             request.ContentType = "application/json";
 
             string Payload = JsonConvert.SerializeObject(message);
