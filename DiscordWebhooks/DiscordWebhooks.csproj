@@ -23,4 +23,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Daniel\source\repos\DiscordWebhooks\DiscordWebhooks\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Daniel\source\repos\DiscordWebhooks\DiscordWebhooks\.editorconfig" />
+  </ItemGroup>
+
 </Project>
