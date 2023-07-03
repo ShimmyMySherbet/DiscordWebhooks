@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>ShimmyMySherbet.DiscordWebhook</RootNamespace>
+    <TargetFrameworks>netstandard2.0;net48;net5</TargetFrameworks>
+    <RootNamespace>ShimmyMySherbet.DiscordWebhooks</RootNamespace>
     <AssemblyName>ShimmyMySherbet.DiscordWebhooks</AssemblyName>
     <Authors>ShimmyMySherbet</Authors>
     <Product>DiscordWebhooks</Product>
@@ -21,6 +21,14 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Daniel\source\repos\DiscordWebhooks\DiscordWebhooks\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Daniel\source\repos\DiscordWebhooks\DiscordWebhooks\.editorconfig" />
   </ItemGroup>
 
 </Project>
