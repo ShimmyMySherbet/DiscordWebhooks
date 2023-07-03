@@ -1,55 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
 	public class WebhookMessage
 	{
-		public string username;
+		[JsonProperty("username")]
+		public string Username { get; set; }
 
-		public string avatar_url;
+		[JsonProperty("avatar_url")]
+		public string AvatarURL { get; set; }
 
-		public string content = "";
+		[JsonProperty("content")]
+		public string Content { get; set; }
 
-		public List<WebhookEmbed> embeds = new List<WebhookEmbed>();
+		[JsonProperty("embeds")]
+		public List<WebhookEmbed> Embeds { get; set; } = new List<WebhookEmbed>();
 
-		public bool tts { get; set; }
+		[JsonProperty("tts")]
+		public bool TTS { get; set; }
 
 		public WebhookMessage WithEmbed(WebhookEmbed embed)
 		{
-			embeds.Add(embed);
+			Embeds.Add(embed);
 			return this;
 		}
 
 		public WebhookEmbed PassEmbed()
 		{
-			WebhookEmbed embed = new WebhookEmbed(this);
-			embeds.Add(embed);
+			var embed = new WebhookEmbed(this);
+			Embeds.Add(embed);
 			return embed;
 		}
 
 		public WebhookMessage WithUsername(string un)
 		{
-			username = un;
+			Username = un;
 			return this;
 		}
 
 		public WebhookMessage WithAvatar(string avatar)
 		{
-			avatar_url = avatar;
+			AvatarURL = avatar;
 			return this;
 		}
 
-		public WebhookMessage WithContent(string c)
+		public WebhookMessage WithContent(string message)
 		{
-			content = c;
+			Content = message;
 			return this;
 		}
 
 		public WebhookMessage WithTTS()
 		{
-			tts = true;
+			TTS = true;
 			return this;
 		}
 	}

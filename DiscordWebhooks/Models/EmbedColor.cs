@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
 	public struct EmbedColor
 	{
-		public byte R;
-		public byte G;
-		public byte B;
+		public byte R { get; set; }
+		public byte G { get; set; }
+		public byte B { get; set; }
 
 		public EmbedColor(byte r, byte g, byte b)
 		{
@@ -16,6 +14,11 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 			G = g;
 			B = b;
 		}
+		public int ToColorCode()
+		{
+			return BitConverter.ToInt32(new byte[] { B, G, R, 0 }, 0);
+		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj is EmbedColor col)
@@ -24,9 +27,10 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 			}
 			return false;
 		}
+
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
+			return ToColorCode();
 		}
 
 		public static EmbedColor Transparent => new EmbedColor(255, 255, 255);

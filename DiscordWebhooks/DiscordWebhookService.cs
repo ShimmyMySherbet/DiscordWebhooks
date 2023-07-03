@@ -1,54 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
+﻿using System.Net;
 using System.Text;
-using Newtonsoft.Json;
-using ShimmyMySherbet.DiscordWebhooks.Embeded;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using ShimmyMySherbet.DiscordWebhooks.Models;
 
 namespace ShimmyMySherbet.DiscordWebhooks
 {
 	public static class DiscordWebhookService
 	{
-		public static void PostMessage(string WebhookURL, WebhookMessage message)
+		public static void PostMessage(string webhookUrl, WebhookMessage message)
 		{
-			HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
+			var request = WebRequest.CreateHttp(webhookUrl);
 			request.Method = "POST";
 			request.ContentType = "application/json";
 
-			string Payload = JsonConvert.SerializeObject(message);
-			byte[] Buffer = Encoding.UTF8.GetBytes(Payload);
+			var payloadJson = JsonConvert.SerializeObject(message);
+			var uploadBuffer = Encoding.UTF8.GetBytes(payloadJson);
 
-			request.ContentLength = Buffer.Length;
+			request.ContentLength = uploadBuffer.Length;
 
-			using (Stream write = request.GetRequestStream())
+			using (var network = request.GetRequestStream())
 			{
-				write.Write(Buffer, 0, Buffer.Length);
-				write.Flush();
+				network.Write(uploadBuffer, 0, uploadBuffer.Length);
+				network.Flush();
 			}
 
-			var resp = (HttpWebResponse)request.GetResponse();
+			request.GetResponse();
 		}
 
-		public static async Task PostMessageAsync(string WebhookURL, WebhookMessage message)
+		public static async Task PostMessageAsync(string webhookUrl, WebhookMessage message)
 		{
-			HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
+			var request = WebRequest.CreateHttp(webhookUrl);
 			request.Method = "POST";
 			request.ContentType = "application/json";
 
-			string Payload = JsonConvert.SerializeObject(message);
-			byte[] Buffer = Encoding.UTF8.GetBytes(Payload);
+			var payloadJson = JsonConvert.SerializeObject(message);
+			var uploadBuffer = Encoding.UTF8.GetBytes(payloadJson);
 
-			request.ContentLength = Buffer.Length;
+			request.ContentLength = uploadBuffer.Length;
 
-			using (Stream write = (await request.GetRequestStreamAsync()))
+			using (var network = request.GetRequestStream())
 			{
-				await write.WriteAsync(Buffer, 0, Buffer.Length);
-				await write.FlushAsync();
+				await network.WriteAsync(uploadBuffer, 0, uploadBuffer.Length);
+				await network.FlushAsync();
 			}
 
-			_ = (HttpWebResponse)(await request.GetResponseAsync());
+			await request.GetResponseAsync();
 		}
 	}
 }

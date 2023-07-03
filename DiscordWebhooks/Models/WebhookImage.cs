@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
 	public class WebhookImage
 	{
-		public string url = "";
+		[JsonProperty("url")]
+		public string ImageURL { get; set; }
 	}
 }

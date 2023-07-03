@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -43,7 +44,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="DiscordWebhooks.DiscordWebhookClient"/>
 	/// </summary>
-	[Obsolete("Use type in namespace 'ShimmyMySherbet.DiscordWebhookClient")]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class DiscordWebhookClient
 	{
 		public Uri WebhookURL;
@@ -92,7 +93,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="DiscordWebhooks.DiscordWebhookService"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public static class DiscordWebhookService
 	{
 		public static void PostMessage(string WebhookURL, WebhookMessage message)
@@ -136,7 +137,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 		}
 	}
 
-
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public static class DiscordHelpers
 	{
 		public static string DateTimeToISO(DateTime dateTime)
@@ -154,7 +155,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.WebhookAuthor"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class WebhookAuthor
 	{
 		public string name;
@@ -165,7 +166,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.WebhookEmbed"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class WebhookEmbed
 	{
 		[JsonIgnore]
@@ -284,7 +285,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.WebhookField"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class WebhookField
 	{
 		public string name;
@@ -296,7 +297,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.WebhookFooter"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class WebhookFooter
 	{
 		public string text;
@@ -307,7 +308,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.WebhookImage"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class WebhookImage
 	{
 		public string url = "";
@@ -316,7 +317,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.WebhookMessage"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public class WebhookMessage
 	{
 		public string username;
@@ -370,7 +371,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	/// <summary>
 	/// Deprecated. Use <see cref="Models.EmbedColor"/>
 	/// </summary>
-	[Obsolete]
+	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public struct EmbedColor
 	{
 		public byte R;

@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
 	public class WebhookField
 	{
-		public string name;
+		[JsonProperty("name")]
+		public string Name { get; set; }
 
-		public string value;
+		[JsonProperty("value")]
+		public string Value { get; set; }
 
-		public bool inline;
+		[JsonProperty("inline")]
+		public bool Inline { get; set; }
 	}
 }

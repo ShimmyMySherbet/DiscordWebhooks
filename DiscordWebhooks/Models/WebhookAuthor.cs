@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
 	public class WebhookAuthor
 	{
-		public string name;
-		public string url;
-		public string icon_url;
+		[JsonProperty("name")]
+		public string Name { get; set; }
+
+		[JsonProperty("url")]
+		public string Url { get; set; }
+
+		[JsonProperty("icon_url")]
+		public string IconURL { get; set; }
 	}
 }

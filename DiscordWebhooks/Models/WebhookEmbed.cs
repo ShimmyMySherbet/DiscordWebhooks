@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using ShimmyMySherbet.DiscordWebhooks.Embeded;
 
@@ -8,6 +7,36 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
 	public class WebhookEmbed
 	{
+		[JsonProperty("color")]
+		public int ColorCode { get; set; }
+
+		[JsonProperty("author")]
+		public WebhookAuthor Author { get; set; }
+
+		[JsonProperty("title")]
+		public string Title { get; set; }
+
+		[JsonProperty("url")]
+		public string Url { get; set; }
+
+		[JsonProperty("description")]
+		public string Description { get; set; }
+
+		[JsonProperty("fields")]
+		public List<WebhookField> Fields { get; set; } = new List<WebhookField>();
+
+		[JsonProperty("image")]
+		public WebhookImage Image { get; set; }
+
+		[JsonProperty("thumbnail")]
+		public WebhookImage Thumbnail { get; set; }
+
+		[JsonProperty("footer")]
+		public WebhookFooter Footer { get; set; }
+
+		[JsonProperty("timestamp")]
+		public string TimestampStr { get; set; }
+
 		[JsonIgnore]
 		private WebhookMessage parent;
 
@@ -24,102 +53,63 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		{
 			if (parent == null)
 			{
-				parent = new WebhookMessage() { embeds = new List<WebhookEmbed>() { this } };
+				parent = new WebhookMessage() { Embeds = new List<WebhookEmbed>() { this } };
 			}
 			return parent;
 		}
 
-		public int color;
-
-		public WebhookAuthor author;
-
-		public string title;
-
-		public string url;
-
-		public string description;
-
-		public List<WebhookField> fields = new List<WebhookField>();
-
-		public WebhookImage image;
-
-		public WebhookImage thumbnail;
-
-		public WebhookFooter footer;
-
-		public string timestamp;
-
 		public WebhookEmbed WithTitle(string title)
 		{
-			this.title = title;
+			Title = title;
 			return this;
 		}
 
 		public WebhookEmbed WithURL(string value)
 		{
-			this.url = value;
+			Url = value;
 			return this;
 		}
 
 		public WebhookEmbed WithDescription(string value)
 		{
-			this.description = value;
+			Description = value;
 			return this;
 		}
 
 		public WebhookEmbed WithTimestamp(DateTime value)
 		{
-			timestamp = DiscordHelpers.DateTimeToISO(value.ToLocalTime());
+			TimestampStr = DiscordHelpers.DateTimeToISO(value.ToLocalTime());
 			return this;
 		}
 
 		public WebhookEmbed WithField(string name, string value, bool inline = true)
 		{
-			this.fields.Add(new WebhookField() { value = value, inline = inline, name = name });
+			Fields.Add(new WebhookField() { Value = value, Inline = inline, Name = name });
 			return this;
 		}
 
-		public WebhookEmbed WithImage(string value)
+		public WebhookEmbed WithImage(string imageUrl)
 		{
-			this.image = new WebhookImage() { url = value };
+			Image = new WebhookImage() { ImageURL = imageUrl };
 			return this;
 		}
 
-		public WebhookEmbed WithThumbnail(string value)
+		public WebhookEmbed WithThumbnail(string imageUrl)
 		{
-			this.thumbnail = new WebhookImage() { url = value };
+			Thumbnail = new WebhookImage() { url = imageUrl };
 			return this;
 		}
 
 		public WebhookEmbed WithAuthor(string name, string url = null, string icon = null)
 		{
-			this.author = new WebhookAuthor() { name = name, icon_url = icon, url = url };
+			Author = new WebhookAuthor() { Name = name, IconURL = icon, Url = url };
 			return this;
 		}
 
 		public WebhookEmbed WithColor(EmbedColor color)
 		{
-			this.color = BitConverter.ToInt32(new byte[4] { color.B, color.G, color.R, 0 }, 0);
+			ColorCode = color.ToColorCode();
 			return this;
 		}
-
-		// Unity Support
-
-		//public WebhookEmbed WithColor(UnityEngine.Color color)
-		//{
-		//    byte r = Clamp(color.r);
-		//    byte g = Clamp(color.g);
-		//    byte b = Clamp(color.b);
-
-		//    int numeric = BitConverter.ToInt32(new byte[4] { b, g, r, 0 }, 0);
-		//    this.color = numeric;
-		//    return this;
-		//}
-
-		private byte Clamp(float a)
-		{
-			return (byte)(Math.Round(a * 255, 0));
-		}
 	}
-
 }
