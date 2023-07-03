@@ -2,23 +2,53 @@
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
 {
+	/// <summary>
+	/// Represents the color of a discord embed
+	/// </summary>
 	public struct EmbedColor
 	{
+		/// <summary>
+		/// Red color component
+		/// </summary>
 		public byte R { get; set; }
+
+		/// <summary>
+		/// Green color component
+		/// </summary>
 		public byte G { get; set; }
+
+		/// <summary>
+		/// Blue color component
+		/// </summary>
 		public byte B { get; set; }
 
+		/// <summary>
+		/// Creates a custom discord RGB color
+		/// </summary>
+		/// <param name="r">Red component</param>
+		/// <param name="g">Green component</param>
+		/// <param name="b">Blue component</param>
 		public EmbedColor(byte r, byte g, byte b)
 		{
 			R = r;
 			G = g;
 			B = b;
 		}
+
+		/// <summary>
+		/// Converts this color to a 32bit color code
+		/// </summary>
+		/// <returns></returns>
 		public int ToColorCode()
 		{
 			return BitConverter.ToInt32(new byte[] { B, G, R, 0 }, 0);
 		}
 
+		/// <summary>
+		/// Compares colors by their components
+		/// </summary>
+		/// <param name="obj">other component</param>
+		/// <returns><see langword="true"/> is equal</returns>
 		public override bool Equals(object obj)
 		{
 			if (obj is EmbedColor col)
@@ -28,6 +58,10 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 			return false;
 		}
 
+		/// <summary>
+		/// Returns the 32bit color code for this color.
+		/// </summary>
+		/// <returns>32Bit color code</returns>
 		public override int GetHashCode()
 		{
 			return ToColorCode();

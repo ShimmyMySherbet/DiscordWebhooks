@@ -6,8 +6,16 @@ using ShimmyMySherbet.DiscordWebhooks.Models;
 
 namespace ShimmyMySherbet.DiscordWebhooks
 {
+	/// <summary>
+	/// Static tool to post messages to discord with a specified webhook URL
+	/// </summary>
 	public static class DiscordWebhookService
 	{
+		/// <summary>
+		/// Synchronously posts a new message to discord
+		/// </summary>
+		/// <param name="message">message to post</param>
+		/// <param name="webhookUrl">The discord webhook URL to post messages to</param>
 		public static void PostMessage(string webhookUrl, WebhookMessage message)
 		{
 			var request = WebRequest.CreateHttp(webhookUrl);
@@ -28,6 +36,11 @@ namespace ShimmyMySherbet.DiscordWebhooks
 			request.GetResponse();
 		}
 
+		/// <summary>
+		/// Asynchronously posts a new message to discord
+		/// </summary>
+		/// <param name="message">message to post</param>
+		/// <param name="webhookUrl">The discord webhook URL to post messages to</param>
 		public static async Task PostMessageAsync(string webhookUrl, WebhookMessage message)
 		{
 			var request = WebRequest.CreateHttp(webhookUrl);
