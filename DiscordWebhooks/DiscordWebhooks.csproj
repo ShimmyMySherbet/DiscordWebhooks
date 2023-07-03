@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>ShimmyMySherbet.DiscordWebhook</RootNamespace>
+    <RootNamespace>ShimmyMySherbet.DiscordWebhooks</RootNamespace>
     <AssemblyName>ShimmyMySherbet.DiscordWebhooks</AssemblyName>
     <Authors>ShimmyMySherbet</Authors>
     <Product>DiscordWebhooks</Product>
