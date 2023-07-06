@@ -38,8 +38,17 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		[JsonProperty("tts")]
 		public bool TTS { get; set; }
 
+		/// <summary>
+		/// The name of the thread to create when posting the message. Can only be used in forum channels
+		/// </summary>
 		[JsonProperty("thread_name")]
 		public string ThreadName { get; set; }
+
+		/// <summary>
+		/// Specifies what users/roles the webhook message is allowed to ping
+		/// </summary>
+		[JsonProperty("allowed_mentions")]
+		public WebhookAllowedMentions AllowedMentions { get; set; } = new WebhookAllowedMentions();
 
 
 		/// <summary>
@@ -80,6 +89,9 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		/// <summary>
 		/// Creates a new thread in the forms channel to post the message to
 		/// </summary>
+		/// <remarks>
+		/// Can only be used in forum channels
+		/// </remarks>
 		/// <param name="threadName">The name of the thread to create</param>
 		/// <returns>Current instance</returns>
 		public WebhookMessage CreateThread(string threadName)
@@ -116,6 +128,83 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		public WebhookMessage WithTTS()
 		{
 			TTS = true;
+			return this;
+		}
+
+		/// <summary>
+		/// Adds a ping permission flag to <seealso cref="AllowedMentions"/>
+		/// </summary>
+		/// <param name="permission">Permission to grant</param>
+		private void AddMentionPermission(string permission)
+		{
+			if (!AllowedMentions.ParseFlags.Contains(permission))
+			{
+				AllowedMentions.ParseFlags.Add(permission);
+			}
+		}
+
+		/// <summary>
+		/// Allows for this message to ping @everyone and @here
+		/// </summary>
+		/// <returns>Current Instance</returns>
+		public WebhookMessage PingsEveryone()
+		{
+			AddMentionPermission("everyone");
+			return this;
+		}
+
+		/// <summary>
+		/// Allows for this message to ping any role
+		/// </summary>
+		/// <remarks>
+		/// If the pinged roles are known, for safety it is better to use <seealso cref="PingsRole(ulong)"/>
+		/// </remarks>
+		/// <returns>Current Instance</returns>
+		public WebhookMessage PingsRoles()
+		{
+			AddMentionPermission("roles");
+			return this;
+		}
+
+		/// <summary>
+		/// Allows for this message to ping any users
+		/// </summary>
+		/// <remarks>
+		/// If the pinged users are known, for safety it is better to use <seealso cref="PingsUser(ulong)"/>
+		/// </remarks>
+		/// <returns>Current Instance</returns>
+		public WebhookMessage PingsUsers()
+		{
+			AddMentionPermission("users");
+			return this;
+		}
+
+		/// <summary>
+		/// Allows the webhook message to ping the specified role
+		/// </summary>
+		/// <param name="roleID">The ID of the role that can be pinged</param>
+		/// <returns>Current Instance</returns>
+		public WebhookMessage PingsRole(ulong roleID)
+		{
+			if (!AllowedMentions.Roles.Contains(roleID))
+			{
+				AllowedMentions.Roles.Add(roleID);
+			}
+			return this;
+		}
+
+		/// <summary>
+		/// Allows the webhook message to ping the specified role
+		/// </summary>
+		/// <param name="userID">The ID of the user that can be pinged</param>
+		/// <returns>Current Instance</returns>
+		public WebhookMessage PingsUser(ulong userID)
+		{
+			if (!AllowedMentions.Users.Contains(userID))
+			{
+				AllowedMentions.Users.Add(userID);
+			}
+
 			return this;
 		}
 	}
