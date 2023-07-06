@@ -138,15 +138,31 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		}
 
 		/// <summary>
+		/// Adds a footer to the embed
+		/// </summary>
+		/// <param name="value">The text content of the footer</param>
+		/// <param name="iconURL">Optional icon URL</param>
+		/// <returns>Current Instance</returns>
+		public WebhookEmbed WithFooter(string value, string iconURL = null)
+		{
+			Footer = new WebhookFooter()
+			{
+				Text = value,
+				IconURL = iconURL
+			};
+			return this;
+		}
+
+		/// <summary>
 		/// Adds a field to the embed.
 		/// </summary>
 		/// <param name="name">Field key/name</param>
 		/// <param name="value">Field value</param>
 		/// <param name="inline">Field in-lining with the previous field</param>
 		/// <returns>Current Instance</returns>
-		public WebhookEmbed WithField(string name, string value, bool inline = true)
+		public WebhookEmbed WithField(string name, object value, bool inline = true)
 		{
-			Fields.Add(new WebhookField() { Value = value, Inline = inline, Name = name });
+			Fields.Add(new WebhookField() { Value = value?.ToString() ?? string.Empty, Inline = inline, Name = name });
 			return this;
 		}
 

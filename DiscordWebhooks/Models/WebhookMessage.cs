@@ -38,6 +38,9 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		[JsonProperty("tts")]
 		public bool TTS { get; set; }
 
+		[JsonProperty("thread_name")]
+		public string ThreadName { get; set; }
+
 
 		/// <summary>
 		/// Adds an instance of an embed to this message.
@@ -71,6 +74,17 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		public WebhookMessage WithUsername(string username)
 		{
 			Username = username;
+			return this;
+		}
+
+		/// <summary>
+		/// Creates a new thread in the forms channel to post the message to
+		/// </summary>
+		/// <param name="threadName">The name of the thread to create</param>
+		/// <returns>Current instance</returns>
+		public WebhookMessage CreateThread(string threadName)
+		{
+			ThreadName = threadName;
 			return this;
 		}
 
