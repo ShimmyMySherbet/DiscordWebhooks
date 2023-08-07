@@ -50,6 +50,15 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		[JsonProperty("allowed_mentions")]
 		public WebhookAllowedMentions AllowedMentions { get; set; } = new WebhookAllowedMentions();
 
+		/// <summary>
+		/// Specifies flags for this message. For non-application owned webhooks, only SupressEmbeds is allowed
+		/// </summary>
+		/// <remarks>
+		/// Documentation: https://discord.com/developers/docs/resources/channel#message-object-message-flags
+		/// </remarks>
+		[JsonProperty("flags")]
+		public int FlagsCompiled { get; set; } = 0;
+
 
 		/// <summary>
 		/// Adds an instance of an embed to this message.
@@ -73,6 +82,16 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 			var embed = new WebhookEmbed(this);
 			Embeds.Add(embed);
 			return embed;
+		}
+
+		/// <summary>
+		/// Suppresses embeds from links in the resulting message
+		/// </summary>
+		/// <returns></returns>
+		public WebhookMessage SuppressEmbeds()
+		{
+			FlagsCompiled |= (1 << 2);
+			return this;
 		}
 
 		/// <summary>

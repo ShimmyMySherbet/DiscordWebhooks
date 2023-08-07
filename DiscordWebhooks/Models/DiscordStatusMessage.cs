@@ -19,6 +19,13 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		[JsonProperty("message")]
 		public string Message { get; set; }
 
+
+		/// <summary>
+		/// Specifies how long to wait before attemping to send the message again
+		/// </summary>
+		[JsonProperty("retry_after")]
+		public float RetryAfter { get; set; } = 0f;
+
 		/// <summary>
 		/// The HTTP status message provided with this response
 		/// </summary>

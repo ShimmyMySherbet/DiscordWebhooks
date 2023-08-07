@@ -85,7 +85,6 @@ namespace ShimmyMySherbet.DiscordWebhooks.Helpers
 			using (var reader = new StreamReader(network))
 			{
 				var json = await reader.ReadToEndAsync();
-				await Console.Out.WriteLineAsync(json);
 				return JsonConvert.DeserializeObject<T>(json);
 			}
 		}

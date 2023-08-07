@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using ShimmyMySherbet.DiscordWebhooks.Helpers;
@@ -15,6 +16,13 @@ namespace ShimmyMySherbet.DiscordWebhooks
     /// </remarks>
     public static class DiscordWebhookService
 	{
+		/// <summary>
+		/// Raises when Discord rate-limits the application, and has to wait
+		/// </summary>
+		public static event OnRatelimitArgs OnRatelimit;
+
+
+
 		/// <summary>
 		/// Synchronously posts a new message to discord. Does not wait for the discord API to respond to the message, which is the default behaviour of the discord webhook API.
 		/// </summary>
@@ -150,6 +158,14 @@ namespace ShimmyMySherbet.DiscordWebhooks
 					var statusMessage = await ex.Response.ReadResponseAsync<DiscordStatusMessage>();
 					statusMessage.Status = ((HttpWebResponse)ex.Response).StatusDescription;
 
+					// Ratelimit
+					if (statusMessage.RetryAfter > 0)
+					{
+						OnRatelimit?.Invoke(message, webhookUrl, statusMessage.RetryAfter);
+						await Task.Delay((int)Math.Ceiling(statusMessage.RetryAfter * 1000) + 1000);
+						return await PostMessageAsync(webhookUrl, message, threadID);
+					}
+
 					throw new DiscordException(statusMessage);
 				}
 				throw;
@@ -226,6 +242,14 @@ namespace ShimmyMySherbet.DiscordWebhooks
 					var statusMessage = ex.Response.ReadResponse<DiscordStatusMessage>();
 					statusMessage.Status = ((HttpWebResponse)ex.Response).StatusDescription;
 
+					// Ratelimit
+					if (statusMessage.RetryAfter > 0)
+					{
+						OnRatelimit?.Invoke(message, webhookUrl, statusMessage.RetryAfter);
+						await Task.Delay((int)Math.Ceiling(statusMessage.RetryAfter * 1000) + 1000);
+						return await EditMessageAsync(webhookUrl, message, messageID, threadID);
+					}
+
 					throw new DiscordException(statusMessage);
 				}
 				throw;
@@ -253,6 +277,7 @@ namespace ShimmyMySherbet.DiscordWebhooks
 				{
 					var statusMessage = ex.Response.ReadResponse<DiscordStatusMessage>();
 					statusMessage.Status = ((HttpWebResponse)ex.Response).StatusDescription;
+
 
 					throw new DiscordException(statusMessage);
 				}
@@ -282,7 +307,14 @@ namespace ShimmyMySherbet.DiscordWebhooks
 					var statusMessage = await ex.Response.ReadResponseAsync<DiscordStatusMessage>();
 					statusMessage.Status = ((HttpWebResponse)ex.Response).StatusDescription;
 
-					ex.Response.Dispose();
+					// Ratelimit
+					if (statusMessage.RetryAfter > 0)
+					{
+						await Task.Delay((int)Math.Ceiling(statusMessage.RetryAfter * 1000) + 1000);
+						await DeleteMessageAsync(webhookURL, messageID, threadID);
+						return;
+					}
+
 					throw new DiscordException(statusMessage);
 				}
 				throw;
