@@ -91,7 +91,12 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
             return embed;
         }
 
-
+        /// <summary>
+        /// Uploads the specified file as an attachment
+        /// </summary>
+        /// <param name="filename">Path to the file to upload</param>
+        /// <param name="description">Optional description to tag the file with</param>
+        /// <returns>Current Instance</returns>
         public WebhookMessage WithAttachment(string filename, string description = null)
         {
             var attachment = new WebhookAttachment()
@@ -105,7 +110,25 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
             return this;
         }
 
-
+        /// <summary>
+        /// Uploads the specified file as an attachment
+        /// </summary>
+        /// <param name="fileData">File bytes to upload</param>
+        /// <param name="fileName">Suggested file name for upload</param>
+        /// <param name="description">Optional description to tag the file with</param>
+        /// <returns>Current Instance</returns>
+        public WebhookMessage WithAttachment(byte[] fileData, string fileName, string description = null)
+        {
+            var attachment = new WebhookAttachment()
+            {
+                Description = description,
+                FileName = Path.GetFileName(fileName),
+                ID = Attachments.Count,
+                Content = new BufferAttachmentContent(fileData)
+            };
+            Attachments.Add(attachment);
+            return this;
+        }
 
         /// <summary>
         /// Suppresses embeds from links in the resulting message
