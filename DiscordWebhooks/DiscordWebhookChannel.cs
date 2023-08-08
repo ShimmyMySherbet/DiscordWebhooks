@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using ShimmyMySherbet.DiscordWebhooks.Models;
 
 namespace ShimmyMySherbet.DiscordWebhooks
@@ -11,6 +12,11 @@ namespace ShimmyMySherbet.DiscordWebhooks
 	/// </remarks>
 	public class DiscordWebhookChannel
 	{
+		/// <summary>
+		/// Raised when Discord rate limits the endpoint
+		/// </summary>
+		public event OnRatelimitArgs OnRatelimit;
+
 		/// <summary>
 		/// The base webhook URL to send messages
 		/// </summary>
@@ -85,7 +91,7 @@ namespace ShimmyMySherbet.DiscordWebhooks
 		/// </remarks>
 		/// <param name="message">message to post</param>
 		public PostedDiscordMessage PostMessage(WebhookMessage message) =>
-			DiscordWebhookService.PostMessage(WebhookURL, message, ThreadID);
+			DiscordWebhookService.PostMessage(WebhookURL, message, ThreadID, OnRatelimit);
 
 		/// <summary>
 		/// Synchronously posts a new message to discord. Waits for the API to send the message to the channel, providing feedback.
@@ -95,7 +101,7 @@ namespace ShimmyMySherbet.DiscordWebhooks
 		/// </remarks>
 		/// <param name="builder">A delegate that builds the new <seealso cref="WebhookMessage"/></param>
 		public PostedDiscordMessage PostMessage(WebhookMessageBuilder builder) =>
-			DiscordWebhookService.PostMessage(WebhookURL, builder(new WebhookMessage()), ThreadID);
+			DiscordWebhookService.PostMessage(WebhookURL, builder(new WebhookMessage()), ThreadID, OnRatelimit);
 
 		/// <summary>
 		/// Asynchronously posts a new message to discord. Waits for the API to send the message to the channel, providing feedback.
@@ -104,8 +110,9 @@ namespace ShimmyMySherbet.DiscordWebhooks
 		/// Provides feedback from the API, including errors. Allows for editing of messages, and for sending more messages to a newly created thread.
 		/// </remarks>
 		/// <param name="message">message to post</param>
-		public async Task<PostedDiscordMessage> PostMessageAsync(WebhookMessage message) =>
-			await DiscordWebhookService.PostMessageAsync(WebhookURL, message, ThreadID);
+		/// <param name="token">Cancellation token to cancel waiting for rate-limits</param>
+		public async Task<PostedDiscordMessage> PostMessageAsync(WebhookMessage message, CancellationToken token = default) =>
+			await DiscordWebhookService.PostMessageAsync(WebhookURL, message, ThreadID, token, OnRatelimit);
 
 		/// <summary>
 		/// Asynchronously posts a new message to discord. Waits for the API to send the message to the channel, providing feedback.
@@ -114,7 +121,8 @@ namespace ShimmyMySherbet.DiscordWebhooks
 		/// Provides feedback from the API, including errors. Allows for editing of messages, and for sending more messages to a newly created thread.
 		/// </remarks>
 		/// <param name="builder">A delegate that builds the new <seealso cref="WebhookMessage"/></param>
-		public async Task<PostedDiscordMessage> PostMessageAsync(WebhookMessageBuilder builder) =>
-			await DiscordWebhookService.PostMessageAsync(WebhookURL, builder(new WebhookMessage()), ThreadID);
+		/// <param name="token">Cancellation token to cancel waiting for rate-limits</param>
+		public async Task<PostedDiscordMessage> PostMessageAsync(WebhookMessageBuilder builder, CancellationToken token = default) =>
+			await DiscordWebhookService.PostMessageAsync(WebhookURL, builder(new WebhookMessage()), ThreadID, token, OnRatelimit);
 	}
 }
