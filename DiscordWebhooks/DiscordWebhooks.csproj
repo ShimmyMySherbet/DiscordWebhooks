@@ -6,8 +6,8 @@
     <AssemblyName>ShimmyMySherbet.DiscordWebhooks</AssemblyName>
     <Authors>ShimmyMySherbet</Authors>
     <Product>DiscordWebhooks</Product>
-    <Description>A simple library with advanced constructors to post discord webhooks.</Description>
-    <Copyright>ShimmyMySherbet 2020</Copyright>
+    <Description>A lightweight Discord webhooks library implementing everything the Discord Webhook API has to offer</Description>
+    <Copyright>ShimmyMySherbet 2023</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageTags>Discord Webhook</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
@@ -15,8 +15,10 @@
     <RepositoryUrl>https://github.com/ShimmyMySherbet/DiscordWebhooks</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ShimmyMySherbet/DiscordWebhooks</PackageProjectUrl>
     <PackageId>ShimmyMySherbet.DiscordWebhook</PackageId>
-    <Version>1.3.0</Version>
-    <PackageReleaseNotes>Fixed constant colors (Thanks DiFFoZ!)</PackageReleaseNotes>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>Released v2.0. Added attachment, message editing, deleting, and finished implementing the rest of the Discord webhook API</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="C:\Users\Daniel\source\repos\DiscordWebhooks\DiscordWebhooks\.editorconfig" />
   </ItemGroup>
 

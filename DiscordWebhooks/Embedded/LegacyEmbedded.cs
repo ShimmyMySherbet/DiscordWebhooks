@@ -51,6 +51,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 
 		public DiscordWebhookClient(string webhookURL) => WebhookURL = new Uri(webhookURL);
 
+		[Obsolete]
 		public void PostMessage(WebhookMessage message)
 		{
 			HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
@@ -70,6 +71,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 			var resp = (HttpWebResponse)request.GetResponse();
 		}
 
+		[Obsolete]
 		public async Task PostMessageAsync(WebhookMessage message)
 		{
 			HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
@@ -96,6 +98,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 	[Obsolete, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 	public static class DiscordWebhookService
 	{
+		[Obsolete]
 		public static void PostMessage(string WebhookURL, WebhookMessage message)
 		{
 			HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
@@ -116,6 +119,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Embeded
 			var resp = (HttpWebResponse)request.GetResponse();
 		}
 
+		[Obsolete]
 		public static async Task PostMessageAsync(string WebhookURL, WebhookMessage message)
 		{
 			HttpWebRequest request = WebRequest.CreateHttp(WebhookURL);
