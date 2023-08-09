@@ -11,7 +11,9 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 		/// <summary>
 		/// The channel the message was sent to, allows for sending further messages to the same channel, including to newly created threads.
 		/// </summary>
-		[JsonIgnore]
+		/// <remarks>
+		/// This value is not set by the Discord API, but is instead set by <seealso cref="DiscordWebhookService"/> when a message is posted
+		/// </remarks>
 		public DiscordWebhookChannel Channel { get; set; }
 
 		/// <summary>

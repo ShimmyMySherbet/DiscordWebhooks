@@ -225,6 +225,7 @@ namespace ShimmyMySherbet.DiscordWebhooks
             }
         }
 
+
         /// <summary>
         /// Synchronously edits a previously sent message, replacing it with the supplied <seealso cref="WebhookMessage"/>
         /// </summary>

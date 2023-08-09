@@ -8,7 +8,7 @@ namespace ShimmyMySherbet.DiscordWebhooks
 	/// An object representing an endpoint for messages. Supports message channels and forms channels with threads.
 	/// </summary>
 	/// <remarks>
-	/// Provides an instance-based method for sending messages to a channel, as an alternative to the static messages provided by <seealso cref="DiscordWebhookService"/>
+	/// Provides an instance-based method for sending messages to a channel, as an alternative to the static messages provided by <seealso cref="DiscordWebhookService"/>. Also provides access to a rate-limited event for this endpoint.
 	/// </remarks>
 	public class DiscordWebhookChannel
 	{
