@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using System.IO;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace ShimmyMySherbet.DiscordWebhooks.Models
@@ -45,6 +46,21 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
 
             return FireMessageSync(client, request);
         }
+
+        /// <summary>
+        /// synchronous platform compatible alternative to <seealso cref="HttpClient.DeleteAsync(string?)"/>
+        /// </summary>
+        /// <param name="client">HttpClient instance</param>
+        /// <param name="url">Uri endpoint</param>
+        /// <returns>Response</returns>
+        public static HttpResponseMessage NetDelete(this HttpClient client, string url)
+        {
+            var method = new HttpMethod("DELETE");
+            var request = new HttpRequestMessage(method, url);
+
+            return FireMessageSync(client, request);
+        }
+
 
         /// <summary>
         /// Platform compatible method to synchronously send a post request

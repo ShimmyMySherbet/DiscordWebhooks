@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using ShimmyMySherbet.DiscordWebhooks.Helpers;
 using ShimmyMySherbet.DiscordWebhooks.Models;
 using ShimmyMySherbet.DiscordWebhooks.Models.Exceptions;
 
@@ -364,24 +363,10 @@ namespace ShimmyMySherbet.DiscordWebhooks
         /// <param name="threadID">The ID of the thread the message is in if applicable</param>
         public static void DeleteMessage(string webhookURL, ulong messageID, ulong threadID = 0)
         {
-            var request = WebRequest.CreateHttp(webhookURL + $"/messages/{messageID}{(threadID != 0 ? $"?thread_id={threadID}" : string.Empty)}");
-            request.Method = "DELETE";
-
-            try
+            using (var client = new HttpClient())
+            using (var response = client.NetDelete(webhookURL + $"/messages/{messageID}{(threadID != 0 ? $"?thread_id={threadID}" : string.Empty)}"))
             {
-                request.GetResponse();
-            }
-            catch (WebException ex)
-            {
-                if (ex.Response?.ContentLength > 0)
-                {
-                    var statusMessage = ex.Response.ReadResponse<DiscordStatusMessage>();
-                    statusMessage.Status = ((HttpWebResponse)ex.Response).StatusDescription;
-
-
-                    throw new DiscordException(statusMessage);
-                }
-                throw;
+                response.EnsureSuccessStatusCode();
             }
         }
 
@@ -393,31 +378,10 @@ namespace ShimmyMySherbet.DiscordWebhooks
         /// <param name="threadID">The ID of the thread the message is in if applicable</param>
         public static async Task DeleteMessageAsync(string webhookURL, ulong messageID, ulong threadID = 0)
         {
-            var request = WebRequest.CreateHttp(webhookURL + $"/messages/{messageID}{(threadID != 0 ? $"?thread_id={threadID}" : string.Empty)}");
-            request.Method = "DELETE";
-
-            try
+            using (var client = new HttpClient())
+            using (var response = await client.DeleteAsync(webhookURL + $"/messages/{messageID}{(threadID != 0 ? $"?thread_id={threadID}" : string.Empty)}"))
             {
-                await request.GetResponseAsync();
-            }
-            catch (WebException ex)
-            {
-                if (ex.Response?.ContentLength > 0)
-                {
-                    var statusMessage = await ex.Response.ReadResponseAsync<DiscordStatusMessage>();
-                    statusMessage.Status = ((HttpWebResponse)ex.Response).StatusDescription;
-
-                    // Ratelimit
-                    if (statusMessage.RetryAfter > 0)
-                    {
-                        await Task.Delay((int)Math.Ceiling(statusMessage.RetryAfter * 1000) + 1000);
-                        await DeleteMessageAsync(webhookURL, messageID, threadID);
-                        return;
-                    }
-
-                    throw new DiscordException(statusMessage);
-                }
-                throw;
+                response.EnsureSuccessStatusCode();
             }
         }
     }

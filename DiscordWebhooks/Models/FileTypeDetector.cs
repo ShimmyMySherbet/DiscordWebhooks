@@ -7,10 +7,10 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
     /// </summary>
     public static class FileTypeDetector
     {
-        private static (int index, byte[] contents) _PNGHeader = (1, new byte[] { 0x50, 0x4E, 0x47 });
-        private static (int index, byte[] contents) _JPGHeader = (6, new byte[] { 0x4A, 0x46, 0x49 });
-        private static (int index, byte[] contents) _WEBPHeader = (0, new byte[] { 0x52, 0x49, 0x46 });
-        private static (int index, byte[] contents) _GIFHeader = (0, new byte[] { 0x47, 0x49, 0x46 });
+        //private static (int index, byte[] contents) _PNGHeader = (1, new byte[] { 0x50, 0x4E, 0x47 });
+        //private static (int index, byte[] contents) _JPGHeader = (6, new byte[] { 0x4A, 0x46, 0x49 });
+        //private static (int index, byte[] contents) _WEBPHeader = (0, new byte[] { 0x52, 0x49, 0x46 });
+        //private static (int index, byte[] contents) _GIFHeader = (0, new byte[] { 0x47, 0x49, 0x46 });
 
         /// <summary>
         /// Attempt to auto-detect image format from a byte array
