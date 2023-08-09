@@ -19,6 +19,8 @@ Provides Async and non-Async APIs. Currently supports everything the Discord web
 | ✅  | Discord Error Handling | N/A |
 | ✅  | Markdown Text Utilities | N/A |
 
+And more not listed here
+
 ## Platform Support
 | ☐ | Platform |
 | ------------- | ------------- |
