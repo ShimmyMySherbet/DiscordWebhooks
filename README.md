@@ -1,41 +1,84 @@
 # DiscordWebhooks
-A small light weight library for sending webhook messages to discord.
+A lightweight Discord webhook library. 
 
-Provides Async and non-async APIs.
+Provides Async and non-Async APIs. Currently supports everything the Discord webhook API provides.
+## Features
+| ☐ | Feature | Backlog |
+| ------------- | ------------- | -- |
+| ✅  | Posting Messages  | N/A |
+| ✅  | Editing Messages  | N/A |
+| ✅  | Deleting Messages  | N/A |
+| ✅  | Uploading Attachments  | N/A |
+| ✅  | Embedding Attachments  | N/A |
+| ✅  | Message Embeds | N/A |
+| ✅  | Forums Channel Support | N/A |
+| ✅  | TTS | N/A |
+| ✅  | Ping Settings | N/A |
+| ✅  | Embed Suppression | N/A |
+| ✅  | Ratelimit Handling | N/A |
+| ✅  | Discord Error Handling | N/A |
+| ✅  | Markdown Text Utilities | N/A |
+
+## Platform Support
+| ☐ | Platform |
+| ------------- | ------------- |
+| ✅  | .NET 4.8  |
+| ✅  | .NET Standard 2.0  |
+ ✅  | .NET Core 3.1  |
+| ✅  | .NET 6  |
+| ✅  | .NET 7  |
+
+
 
 # Installation
 Install via Nu-get: **Install-Package ShimmyMySherbet.DiscordWebhook**
 
 
-
 # Usage Example:
 
 ```cs
-WebhookMessage testMessage = new WebhookMessage()
-    .WithContent("Message Content")
-    .WithAvatar("https://cdn.discordapp.com/attachments/368648379556954115/818717925842223114/bojo.png")
-    .WithUsername("Test Bot")
-    .PassEmbed()
-        .WithTitle("Announcement")
-        .WithDescription("Los Angeles Carries Out Controlled Burn Of Old-Growth Celebrities To Make Way For New Stars")
-        .WithColor(Color.red)
-        .WithImage("https://i.kinja-img.com/gawker-media/image/upload/c_fit,f_auto,g_center,pg_1,q_60,w_965/aehqzlkjawktzvzqh22p.jpg")
-        .WithURL("https://www.theonion.com/los-angeles-carries-out-controlled-burn-of-old-growth-c-1846433536")
-        .WithTimestamp(DateTime.Now)
-        .WithField("Category", "News Brief")
-        .WithField("Author", "Someone idk")
-        .Finalize()
-    .PassEmbed()
-        .WithTitle("2nd embed title here")
-        .WithDescription("Description")
-        .WithImage("https://cdn.discordapp.com/attachments/368648379556954115/818717925842223114/bojo.png")
-        .WithColor(Color.magenta)
-        .WithAuthor("Boris", "https://www.theonion.com/los-angeles-carries-out-controlled-burn-of-old-growth-c-1846433536")
-        .Finalize();
+// instance-based webhook client with support for forum and text channels.
+var channel = new DiscordWebhookChannel(ForumsChannelWebhookURL);
 
-await DiscordWebhookService.PostMessageAsync(WebhookURL, testMessage);
+channel.OnRatelimit += LogRatelimitEvent;
+
+var ausRole = 1138469998130634753ul;
+
+var patchNotes = "* New vehicle Added (Kayak)\n" +
+                    "* Lag fix\n" +
+                    "* Improved enemy AI\n" +
+                    "* New aggressive mobs\n" +
+                    "* New boss battles\n" +
+                    "* Fixed npc bugs\n" +
+                    "* Map update";
+
+var message = new WebhookMessage()
+                .WithUsername("Announcements")
+                .CreateThread("Australia v0.4.2 Patch Notes") // Creates a thread in forums channels
+                .WithAvatar(AusFlagURL)
+                .PassEmbed() // Creates an embed and returns it
+                     .WithTitle("Australia Patch Notes")
+                     .WithURL("https://www.youtube.com/watch?v=1CQ8b2WOWW8")
+                     .WithDescription("New update just dropped")
+                     .WithField("Change notes", patchNotes)
+                     .UploadImage(@".\aus.png") // Also supports uploading byte[]
+                     .Finalize(); // returns the parent WebhookMessage
+
+
+var sent = await channel.PostMessageAsync(message);
+
+
+await Task.Delay(1000);
+
+// Modify message object
+message.WithContent(ausRole.PingRole())
+          .PingsRole(ausRole); // Allows the message to ping the role
+
+// Edit message with new content
+await sent.EditMessageAsync(message);
+
+
+await Task.Delay(10000);
+await sent.DeleteAsync();
 ```
-
-Result:
-
-<img src="https://i.ibb.co/T1pPj7t/image.png">
+<img src="https://github.com/ShimmyMySherbet/DiscordWebhooks/blob/master/media/example.png?raw=true">
