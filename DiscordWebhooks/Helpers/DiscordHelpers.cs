@@ -30,7 +30,7 @@ namespace ShimmyMySherbet.DiscordWebhook.Helpers
 		/// <param name="hour">Hour of day (1-12)</param>
 		/// <param name="minute">Minute of the hour (0-59)</param>
 		/// <param name="second">Second of the minute (0-59)</param>
-		/// <returns></returns>
+		/// <returns>DateTime string</returns>
 		public static string DateTimeToISO(int year, int month, int day, int hour, int minute, int second)
 		{
 			return new DateTime(year, month, day, hour, minute, second, 0, DateTimeKind.Local)

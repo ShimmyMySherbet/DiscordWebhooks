@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net48;net5</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net48;net6;net7;netcoreapp3.1</TargetFrameworks>
     <RootNamespace>ShimmyMySherbet.DiscordWebhooks</RootNamespace>
     <AssemblyName>ShimmyMySherbet.DiscordWebhooks</AssemblyName>
     <Authors>ShimmyMySherbet</Authors>
@@ -21,6 +21,11 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <!-- .NET 4.8 Requires System.Net.Http as  .NET 4.8's version of the HttpClient APIs are missing required features present in .NET 5.0+ -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup>
