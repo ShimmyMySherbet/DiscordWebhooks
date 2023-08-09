@@ -73,7 +73,7 @@ namespace ShimmyMySherbet.DiscordWebhooks.Models
         {
             // I am not a fan of compiler macros,
             // but the inconsistent support across .net versions doesn't leave me much choice
-#if NET48 || NETSTANDARD2_0
+#if NET48 || NETSTANDARD2_0 || NETCOREAPP3_1
 
             // Why does net 4.8 and NetStandard not even have a synchronous send method, only async?
 
